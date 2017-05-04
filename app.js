@@ -1,42 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-<link href="https://fonts.googleapis.com/css?family=Baloo|Roboto|Nunito" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.css" rel="stylesheet">
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="styles.css">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.8.0/d3.min.js"></script>
-<script src="d3.punchcard.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-
-</head>
-<body>
-
-<h1 class="main-title">My musical development through time</h1>
-
-<div class="itba-sub-title">Porject for Information Visualization Course (2017) - Instituto Tecnol&oacute;gico de Buenos Aires</div>
-
-<p class="sub-title">&emsp;I've been playing the harmonica since 2011 and saxophone since 2015. Started in a band of some high school friends of mine playing rock and roll, and then added the saxophone, which opened me the door to the jazz world. </p>
-
-<p class="sub-title">&emsp;This page aims to show how I've been developing myself as a musician, by showing the amount of played songs grouped by their main chord and the year when I played them.</p>
-
-<div class="main-panel">
-	<div id="chart"></div>
-	<div class="songs-container">
-		<div class="suggestion"><i class="fa fa-arrow-left" aria-hidden="true"></i> Click on any chord!</div>
-	</div>
-</div>
-
-<script type="text/javascript">
-
 // all the songs I've played
-var allSongs = [
+var songs = [
 	{
 	   name: 'Tan Solo',
 	   artist: 'Los Piojos',
-	   chord: 'G',
+	   key: 'G',
 	   youtubeLink: 'https://www.youtube.com/watch?v=ojZWeUghJBo',
 	   instrument: 'harp',
 	   playedAt: 2011
@@ -44,7 +11,7 @@ var allSongs = [
 	{
 	   name: 'Pensar En Nada',
 	   artist: 'Leon Gieco',
-	   chord: 'G',
+	   key: 'G',
 	   youtubeLink: 'https://www.youtube.com/watch?v=SHEvqcJ5yc4',
 	   instrument: 'harp',
 	   playedAt: 2011
@@ -52,7 +19,7 @@ var allSongs = [
 	{
 	   name: 'Labios de seda',
 	   artist: 'Los Piojos',
-	   chord: 'E',
+	   key: 'E',
 	   youtubeLink: 'https://www.youtube.com/watch?v=A95tJD6TkfU',
 	   instrument: 'harp',
 	   playedAt: 2012
@@ -61,7 +28,7 @@ var allSongs = [
 	   name: 'La Balada del Diablo y la Muerte',
 	   artist: 'La Renga',
 	   youtubeLink: 'https://www.youtube.com/watch?v=9ocGGtZk-qo',
-	   chord: 'Em',
+	   key: 'Em',
 	   instrument: 'harp',
 	   playedAt: 2012
 	},
@@ -69,7 +36,7 @@ var allSongs = [
 	   name: 'Bien Alto',
 	   youtubeLink: 'https://www.youtube.com/watch?v=lRCACM_E4Yw',
 	   artist: 'La Renga',
-	   chord: 'G',
+	   key: 'G',
 	   instrument: 'harp',
 	   playedAt: 2014
 	},
@@ -77,15 +44,15 @@ var allSongs = [
 	   name: 'Lo Fragil de la Locura',
 	   youtubeLink: 'https://www.youtube.com/watch?v=1f_fmRdJYMo',
 	   artist: 'La Renga',
-	   chord: 'Am',
+	   key: 'Am',
 	   instrument: 'harp',
 	   playedAt: 2013
 	},
 		    {
-	   name: 'Cuando Estes Aca',
+	   name: 'Cuando Estés Acá',
 	   youtubeLink: 'https://www.youtube.com/watch?v=-r59HPyCFwk',
 	   artist: 'La Renga',
-	   chord: 'Am',
+	   key: 'Am',
 	   instrument: 'harp',
 	   playedAt: 2012
 	},
@@ -93,14 +60,14 @@ var allSongs = [
 	   name: 'Fantasma',
 	   artist: 'Los Piojos',
 	   youtubeLink: 'https://www.youtube.com/watch?v=mxAswHnTkCc',
-	   chord: 'A',
+	   key: 'A',
 	   instrument: 'harp',
 	   playedAt: 2012
 	},
 	    {
 	   name: 'Aunque a Nadie Ya le Importe',
 	   artist: 'Viejas Locas',
-	   chord: 'G',
+	   key: 'G',
 	   youtubeLink: 'https://www.youtube.com/watch?v=zZm-Kfq0nsY',
 	   instrument: 'harp',
 	   playedAt: 2013
@@ -109,15 +76,15 @@ var allSongs = [
 	   youtubeLink: 'https://www.youtube.com/watch?v=xSf9PQoL-kU',
 	   name: 'Post Crucifixion',
 	   artist: 'Pescado Rabioso',
-	   chord: 'A',
+	   key: 'A',
 	   instrument: 'harp',
 	   playedAt: 2013
 	},
 			    {
-	   name: 'Descortes',
+	   name: 'Descortés',
 	   youtubeLink: 'https://www.youtube.com/watch?v=2r8FAW7QbOA',
 	   artist: 'Pappo',
-	   chord: 'E',
+	   key: 'E',
 	   instrument: 'harp',
 	   playedAt: 2012
 	},
@@ -125,14 +92,14 @@ var allSongs = [
 	   name: 'Ruta 66',
 	   artist: 'Pappo Blue\'s',
 	   youtubeLink: 'https://www.youtube.com/watch?v=62__vUWt3gI',
-	   chord: 'G',
+	   key: 'G',
 	   instrument: 'harp',
 	   playedAt: 2011
 	},
 					    {
 	   name: 'Susy Cadillac',
 	   artist: 'Riff',
-	   chord: 'A',
+	   key: 'A',
 	   youtubeLink: 'https://www.youtube.com/watch?v=o7gO37Lm2vE',
 	   instrument: 'harp',
 	   playedAt: 2013
@@ -141,14 +108,14 @@ var allSongs = [
 	   name: 'Buscando un Amor',
 	   artist: 'Pappo',
 	   youtubeLink: 'https://www.youtube.com/watch?v=VoFV9F4x_CE',
-	   chord: 'G',
+	   key: 'G',
 	   instrument: 'harp',
 	   playedAt: 2013
 	},
 							    {
 	   name: 'Ando Rodando',
 	   artist: 'Gustavo Santaolalla',
-	   chord: 'Bb',
+	   key: 'Bb',
 	   youtubeLink: 'https://www.youtube.com/watch?v=opnLS4L_iCk',
 	   instrument: 'harp',
 	   playedAt: 2011
@@ -156,7 +123,7 @@ var allSongs = [
 							    {
 	   name: 'Walter\'s Boogie',
 	   artist: 'Big Walter Horton',
-	   chord: 'E',
+	   key: 'E',
 	   youtubeLink: 'https://www.youtube.com/watch?v=G1ChZCddsnI',
 	   instrument: 'harp',
 	   playedAt: 2013
@@ -165,22 +132,22 @@ var allSongs = [
 	   name: 'The House of the Rising Sun',
 	   artist: 'The Animals',
 	   youtubeLink: 'https://www.youtube.com/watch?v=0sB3Fjw3Uvc',
-	   chord: 'Am',
+	   key: 'Am',
 	   instrument: 'harp',
 	   playedAt: 2012
 	},
 	{
 		name: 'Saint James Infirmary',
 	   artist: 'Anonymous Origin',
-	   chord: 'Dm',
+	   key: 'Dm',
 	   youtubeLink: 'https://www.youtube.com/watch?v=l5VDMbeBsDQ',
 	   instrument: 'harp',
 	   playedAt: 2012,
 	},
 	{
-		name: 'Vine Hasta Aqui',
+		name: 'Vine Hasta Aquí',
 	   artist: 'Los Piojos',
-	   chord: 'G',
+	   key: 'G',
 	   youtubeLink: 'https://www.youtube.com/watch?v=2Rrv217PWS0',
 	   instrument: 'harp',
 	   playedAt: 2011,
@@ -188,7 +155,7 @@ var allSongs = [
 	{
 				   name: 'Muy Despacito',
 	   artist: 'Los Piojos',
-	   chord: 'D',
+	   key: 'D',
 	   youtubeLink: 'https://www.youtube.com/watch?v=6VxmE-WxSeI',
 	   instrument: 'harp',
 	   playedAt: 2012
@@ -196,7 +163,7 @@ var allSongs = [
 	{
 		name: 'Nena',
 	   artist: 'Scones de la Chola',
-	   chord: 'E',
+	   key: 'E',
 	   youtubeLink: '',
 	   instrument: 'harp',
 	   playedAt: 2012
@@ -204,7 +171,7 @@ var allSongs = [
 	{
 		name: 'El Momento',
 	   artist: 'Scones de la Chola',
-	   chord: 'Em',
+	   key: 'Em',
 	   youtubeLink: 'https://www.youtube.com/watch?v=ugj6p4jVVa0',
 	   instrument: 'harp',
 	   playedAt: 2012
@@ -213,14 +180,14 @@ var allSongs = [
 					   name: 'La de Opi',
 	   artist: 'Scones de la Chola',
 	   youtubeLink: 'https://www.youtube.com/watch?v=ntqVfLMUNEE',
-	   chord: 'Em',
+	   key: 'Em',
 	   instrument: 'harp',
 	   playedAt: 2012
 	},
 		{
-		name: 'Unisono',
+		name: 'Unísono',
 	   artist: 'Los Piojos',
-	   chord: 'Am',
+	   key: 'Am',
 	   youtubeLink: '',
 	   instrument: 'harp',
 	   playedAt: 2012
@@ -229,7 +196,7 @@ var allSongs = [
 					   name: 'Baja y Sube',
 	   youtubeLink: 'https://www.youtube.com/watch?v=4kQ2tYZMCxg',
 	   artist: 'Scones de la Chola',
-	   chord: 'G',
+	   key: 'G',
 	   instrument: 'harp',
 	   playedAt: 2016
 	},
@@ -237,14 +204,14 @@ var allSongs = [
 					   name: 'Genesis',
 	   youtubeLink: 'https://www.youtube.com/watch?v=aIWl_jZffkc',
 	   artist: 'Vox Dei',
-	   chord: 'Em',
+	   key: 'Em',
 	   instrument: 'harp',
 	   playedAt: 2014
 	},
 		{
 					   name: 'El Mochilero',
 	   artist: 'Scones de la Chola',
-	   chord: 'E',
+	   key: 'E',
 	   youtubeLink: 'https://www.youtube.com/watch?v=rvwwcEj_TjM',
 	   instrument: 'harp',
 	   playedAt: 2015
@@ -253,7 +220,7 @@ var allSongs = [
 					   name: 'Carnavales',
 		   youtubeLink: 'https://youtu.be/uor8EwF2wMg',
    artist: 'Scones de la Chola',
-	   chord: 'A',
+	   key: 'A',
 	   instrument: 'harp',
 	   playedAt: 2016
 	},
@@ -261,7 +228,7 @@ var allSongs = [
 					   name: 'Vamos los Scones',
 	   artist: 'Scones de la Chola',
 	   youtubeLink: 'https://www.youtube.com/watch?v=3bJMzAk3P_M',
-	   chord: 'E',
+	   key: 'E',
 	   instrument: 'harp and tenor sax',
 	   playedAt: 2015
 	},
@@ -269,7 +236,7 @@ var allSongs = [
 					   name: 'La Tempestad',
 	   youtubeLink: 'Scones de la Chola',
 	   artist: 'La Tempestad',
-	   chord: 'A',
+	   key: 'A',
 	   instrument: 'tenor sax',
 	   playedAt: 2015
 	},
@@ -277,7 +244,7 @@ var allSongs = [
 	   youtubeLink: 'https://www.youtube.com/watch?v=TcbBXFj_-bE',
 					   name: 'Frecuencias',
 	   artist: 'Scones de la Chola',
-	   chord: 'Em',
+	   key: 'Em',
 	   instrument: 'tenor sax',
 	   playedAt: 2015
 	},
@@ -285,15 +252,15 @@ var allSongs = [
 					   name: 'Del Norte al Sur',
 	   youtubeLink: 'https://youtu.be/p7zRg8mD_I0?t=28m14s',
 	   artist: 'Scones de la Chola',
-	   chord: 'A',
+	   key: 'A',
 	   instrument: 'harp',
 	   playedAt: 2015
 	},
 				{
-					   name: 'Mas Alla',
+					   name: 'Mas Allá',
 	   youtubeLink: 'https://www.youtube.com/watch?v=Jki1w8EHGHQ',
 	   artist: 'Callejeros',
-	   chord: 'A',
+	   key: 'A',
 	   instrument: 'alto sax',
 	   playedAt: 2015
 	},
@@ -301,7 +268,7 @@ var allSongs = [
 					   name: 'Yo Canibal',
 	   artist: 'Patricio Rey y sus Redonditos de Ricota',
 	   youtubeLink: 'https://www.youtube.com/watch?v=zz1ipiFBMRg',
-	   chord: 'D',
+	   key: 'D',
 	   instrument: 'tenor sax',
 	   playedAt: 2015
 	},
@@ -309,7 +276,7 @@ var allSongs = [
 					   name: 'Me Gustas Mucho',
 	   artist: 'Viejas Locas',
 	   youtubeLink: 'https://www.youtube.com/watch?v=5_yMrFEAmL8',
-	   chord: 'E',
+	   key: 'E',
 	   instrument: 'harp',
 	   playedAt: 2016
 	},
@@ -317,7 +284,7 @@ var allSongs = [
 					   name: 'Lo Artesanal',
 	   artist: 'Viejas Locas',
 	   youtubeLink: 'https://www.youtube.com/watch?v=xhb1pOBgk58',
-	   chord: 'Dm',
+	   key: 'Dm',
 	   instrument: 'alto sax',
 	   playedAt: 2016
 	},
@@ -325,7 +292,7 @@ var allSongs = [
 					   name: 'No Tan Distintos',
 	   artist: 'Sumo',
 	   youtubeLink: 'https://www.youtube.com/watch?v=4irJBhYRe3c',
-	   chord: 'Bm',
+	   key: 'Bm',
 	   instrument: 'alto sax',
 	   playedAt: 2016
 	},
@@ -333,7 +300,7 @@ var allSongs = [
 					   name: 'Blue in Green',
 	   artist: 'Miles Davis',
 	   youtubeLink: 'https://www.youtube.com/watch?v=PoPL7BExSQU',
-	   chord: 'Dm',
+	   key: 'Dm',
 	   instrument: 'tenor sax',
 	   playedAt: 2016
 	},
@@ -341,7 +308,7 @@ var allSongs = [
 					   name: 'Blue Bossa',
 	   youtubeLink: 'https://www.youtube.com/watch?v=6sr7BXinJMw',
 	   artist: 'Dexter Gordon',
-	   chord: 'Cm',
+	   key: 'Cm',
 	   instrument: 'tenor sax',
 	   playedAt: 2017
 	},
@@ -349,7 +316,7 @@ var allSongs = [
 					   name: 'Autumn Leaves',
 	   youtubeLink: 'https://www.youtube.com/watch?v=sgn7VfXH2GY',
 	   artist: 'Chet Baker',
-	   chord: 'Em',
+	   key: 'Em',
 	   instrument: 'tenor sax',
 	   playedAt: 2016
 	},
@@ -357,14 +324,14 @@ var allSongs = [
 					   name: 'Footprints',
 	   artist: 'Miles Davis',
 	   youtubeLink: 'https://www.youtube.com/watch?v=62p-CXrYmf4',
-	   chord: 'Cm',
+	   key: 'Cm',
 	   instrument: 'tenor sax',
 	   playedAt: 2016
 	},
 							{
 					   name: 'Cantaloupe Island',
 	   artist: 'Herbie Hancock',
-	   chord: 'Fm',
+	   key: 'Fm',
 	   youtubeLink: 'https://www.youtube.com/watch?v=FPVuLS-HXJo',
 	   instrument: 'tenor sax',
 	   playedAt: 2017
@@ -373,85 +340,79 @@ var allSongs = [
 					   name: 'Birk\'s Works',
 	   artist: 'Dizzy Gillespie',
 	   youtubeLink: 'https://www.youtube.com/watch?v=GdFAUdKOajQ',
-	   chord: 'Fm',
+	   key: 'Fm',
 	   instrument: 'tenor sax',
 	   playedAt: 2016
 	},
 									{
 					   name: 'Work Song',
-	   artist: 'Nat Adderley',
-	   youtubeLink: 'https://www.youtube.com/watch?v=4rmXbiD3Jog',
-	   chord: 'Fm',
+	   artist: '',
+	   youtubeLink: '',
+	   key: 'Fm',
 	   instrument: 'tenor sax',
 	   playedAt: 2016
 	}
 ];
 
-function getChords() {
-	return _.map(
-			_.sortBy(
-			_.map(
-			_.groupBy(
-			_.pluck(allSongs, 'chord')), 
-				function(v,k) { 
-					return {chord: k, songsAmount: v.length} 
-				}), 'songsAmount'),
-			'chord');
+debugger
 
+var data = [
+{
+	key: "data-1",
+	values: [
+						{key: "2004", value: 8},
+						{key: "2005", value: 4},
+						{key: "2006", value: 10},
+						{key: "2007", value: 11},
+						{key: "2008", value: 6},
+						{key: "2009", value: 10},
+						{key: "2010", value: 16}
+					]
+},
+{
+	key: "data-2",
+	values: [
+						{key: "2004", value: 2},
+						{key: "2005", value: 4},
+						{key: "2006", value: 10},
+						{key: "2007", value: 7},
+						{key: "2008", value: 20},
+						{key: "2009", value: 6},
+						{key: "2010", value: 18}
+					]
+},
+{
+	key: "data-3",
+	values: [
+						{key: "2004", value: 1},
+						{key: "2005", value: 2},
+						{key: "2006", value: 3},
+						{key: "2007", value: 4},
+						{key: "2008", value: 6},
+						{key: "2009", value: 10},
+						{key: "2010", value: 4}
+					]
+},
+{
+	key: "data-4",
+	values: [
+						{key: "2004", value: 1},
+						{key: "2005", value: 2},
+						{key: "2006", value: 3},
+						{key: "2007", value: 4},
+						{key: "2008", value: 6},
+						{key: "2009", value: 10},
+						{key: "2010", value: 4}
+					]
 }
-
-function getSongsInChord(chord) {
-	return _.filter(allSongs, function(s) { 
-		return s.chord == chord;
-	});
-};
-
-var data = _.map(getChords(), function(chord) {
-	return {
-		key: chord,
-		values: _.map(
-				_.groupBy(
-				getSongsInChord(chord), function(s) {
-					 return s.playedAt; 
-					}), function(value, key) { 
-					  return { key: key, value: value.length }; 
-				})
-	}
-});
+];
 
 var punchcard = punchcard()
 					.$el(d3.select("#chart"))
 					.data(data)
-					.width(450)
-					.height(550)
+					.width(750)
 					.color("black")
 					.minRadius(3)
                 	.useGlobalScale(false) 
 					.maxRadius(19)
 					.render();
-
-function updateSongsDescriptions(songs) {
-	$('.songs-container').html('');
-	_.forEach(songs, addSongsDescription);
-}
-
-function addSongsDescription(song) {
-	var songTemplate = '<div class="song-description">'
-							+ '<div class="name"> ' + song.name + '</div>'
-							+ '<div class="artist"> ' + song.artist + '</div>'
-							+ '<div class="played-the"> Played the ' + song.instrument + ' on ' + song.playedAt + ' - Chord: ' + song.chord +'</div>'
-							+ '<a class="youtube-link" href="' + song.youtubeLink +'" target="_blank"><i class="fa fa-play-circle-o" aria-hidden="true" on-click=""></i></a>'
-							+ '</div>';
-
-	$('.songs-container').append(songTemplate);
-}
-
-$('#chart').on('chord-clicked', function(event, chord) {
-	updateSongsDescriptions(_.filter(allSongs, function(s) {
-		return s.chord == chord;
-	}));
-});
-</script>
-
-</body>
-</html>

@@ -1,0 +1,158 @@
+.main-title {
+	font-family: 'Nunito', sans-serif;
+	margin-top: 60px;
+    text-align: center;
+}
+
+{ margin: 0; padding: 0; }
+
+html { 
+	overflow-y: hidden;
+	min-width: 1090px;
+    background: url('sax.jpg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+html {
+	height: 100%;
+    width: 100%;
+}
+
+body {
+	position: relative;
+	font-family: 'Roboto', sans-serif;
+	height: 100%;
+    width: 100%;
+    overflow: auto;
+
+    color: white;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0), 1px -1px 0 rgba(0, 0, 0, 0), -1px 1px 0 rgba(0, 0, 0, 0.35), 1px 1px 0 rgba(0, 0, 0, 0.47); 
+}
+
+.sub-title {
+	max-width: 900px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+#chart {
+	    margin-right: -60px;
+    display: inline-block;
+    text-shadow: none;
+}
+
+svg {
+  font: 10px sans-serif;
+      margin-top: -20px;
+}
+.axis path,.axis line {
+	fill: none;
+	stroke: #b6b6b6;
+	shape-rendering: crispEdges;
+}
+.tick text{
+	fill: #272727;
+}
+g.journal.active{
+	cursor:pointer;
+}
+text.label{
+	font-size:12px;font-weight:bold;cursor:pointer;
+}
+text.value{
+	font-size:12px;font-weight:bold;
+}
+
+.main-panel {
+	margin-top: 65px;
+    height: 650px;
+        text-align: center;
+	position: relative;
+	display: block;
+	    background-color: rgba(255, 255, 255, 0.71);
+}
+
+.songs-container {
+    display: inline-block;
+    overflow-y: visible;
+    width: 446px;
+    height: 516px;
+    overflow-x: hidden;
+}
+
+.song-description {
+	width: 400px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.71);
+    margin: auto;
+    margin-top: 30px;
+    border-radius: 4px;
+    position: relative;
+    display: inline-grid;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.name {
+	    position: absolute;
+    top: 18px;
+    left: 30px;
+    text-shadow: none;
+    color: black;
+    font-weight: bolder;
+    font-size: large;
+}
+
+.artist {
+	    position: absolute;
+    top: 45px;
+    left: 30px;
+    text-shadow: none;
+    color: black;
+}
+
+.played-the {
+	    position: absolute;
+    top: 68px;
+    left: 30px;
+    text-shadow: none;
+    color: black;
+    font-size: small;
+}
+
+.chord {
+	position: absolute;
+    top: 20px;
+    right: 40px;
+    color: black;
+    text-shadow: none;
+}
+
+.suggestion {
+	    margin-top: 55px;
+    text-shadow: none;
+    color: #4e4e4e;
+}
+
+.youtube-link {
+    position: absolute;
+    top: 27px;
+    right: 54px;
+    font-size: 40px;
+    color: black;
+    text-shadow: none;
+}
+
+.youtube-link:hover { 
+    color: grey;
+}
+
+.itba-sub-title {
+	text-align: center;
+    font-size: small;
+    font-weight: 100;
+    font-style: italic;
+}

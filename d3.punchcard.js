@@ -16,6 +16,8 @@ function punchcard(){
 	var svg, x, xAxis, allValues, xScale, colorScale;
 	var rowHeight = (maxRadius*2)+2;
 	var useGlobalScale = true;
+	var selectedChord;
+	var selectedCircles;
 
 	object.render = function(){
 		x = d3.scale.linear()
@@ -55,19 +57,17 @@ function punchcard(){
 
 		function mouseover(p) {
 			var g = d3.select(this).node().parentNode;
-			d3.select(g).selectAll("circle").style("display","none");
-			d3.select(g).selectAll("text.value").style("display","block");
-		}
-
-		function mouseclick(p) {
-			var g = d3.select(this).node().parentNode;
-			debugger
+			d3.select(g).selectAll("circle").style("fill","rgb(156, 62, 62)");
 		}
 
 		function mouseout(p) {
 			var g = d3.select(this).node().parentNode;
-			d3.select(g).selectAll("circle").style("display","block");
-			d3.select(g).selectAll("text.value").style("display","none");
+			var chrodElem = $(d3.select(this).node().parentNode).find('.label');
+			var _selectedChord = chrodElem[0].textContent;
+
+			if (_.isUndefined(selectedChord) || selectedChord != _selectedChord) {
+				d3.select(g).selectAll("circle").style("fill","black");
+			}	
 		}
 
 		for (var j = 0; j < data.length; j++) {
@@ -78,11 +78,6 @@ function punchcard(){
 				.enter()
 				.append("circle");
 
-			var text = g.selectAll("text")
-				.data(data[j]['values'])
-				.enter()
-				.append("text");
-
 			var rDomain = useGlobalScale ? valDomain : [0, _.max(_.pluck(_.flatten(_.pluck(data, 'values')), 'value'))];
 			var rScale = d3.scale.linear()
 				.domain(rDomain)
@@ -92,28 +87,29 @@ function punchcard(){
 				.attr("cx", function(d, i) { return xScale(d['key']); })
 				.attr("cy", (height - margin.bottom - rowHeight*2) - (j*rowHeight)+rowHeight)
 				.attr("r", function(d) { return rScale(d['value']); })
-				.style("fill", function(d) { return colorScale(d['value']) });
-
-			text
-				.attr("y",(height - margin.bottom - rowHeight*2) - (j*rowHeight)+(rowHeight+5))
-				.attr("x",function(d, i) { return xScale(d['key'])-5; })
-				.attr("class","value")
-				.text(function(d){ return d['value']; })
 				.style("fill", function(d) { return colorScale(d['value']) })
-				.style("display","none");
+				.on("mouseover", mouseover)
+				.on("mouseout", mouseout);
 
 			g.append("text")
 				.attr("y", (height - margin.bottom - rowHeight*2) - (j*rowHeight)+(rowHeight+5))
 				.attr("x",width+rowHeight)
 				.attr("class","label")
 				.text(data[j]['key'])
-				.style("fill", function(d) { return color })
-				.on("mouseover", mouseover)
-				.on("mouseout", mouseout);
+				.style("fill", function(d) { return color });
 
 			g.on("click", function() {
 				var chrodElem = $(d3.select(this).node()).find('.label');
-				chrodElem.trigger('chord-clicked', chrodElem[0].textContent)
+				
+				selectedChord = chrodElem[0].textContent;
+
+				if (!_.isUndefined(selectedCircles)) {
+					selectedCircles.css("fill","black");
+				}
+				
+				selectedCircles = $(d3.select(this).node()).find('circle');
+
+				chrodElem.trigger('chord-clicked', selectedChord);
 			});
 
 		};

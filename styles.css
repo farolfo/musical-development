@@ -156,3 +156,23 @@ text.value{
     font-weight: 100;
     font-style: italic;
 }
+
+.about-container {
+        width: 100%;
+    background-color: white;
+    color: #404040;
+    text-shadow: none;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.about-container h2 {
+        padding-top: 40px;
+}
+
+.about-container p {
+        margin-left: 70px;
+    margin-right: 70px;
+    font-weight: 100;
+    padding-bottom: 40px;
+}

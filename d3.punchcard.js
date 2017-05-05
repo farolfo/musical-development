@@ -96,7 +96,9 @@ function punchcard(){
 				.attr("x",width+rowHeight)
 				.attr("class","label")
 				.text(data[j]['key'])
-				.style("fill", function(d) { return color });
+				.style("fill", function(d) { return color })
+				.on("mouseover", mouseover)
+				.on("mouseout", mouseout);
 
 			g.on("click", function() {
 				var chrodElem = $(d3.select(this).node()).find('.label');
